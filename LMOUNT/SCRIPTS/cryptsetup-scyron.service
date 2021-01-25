@@ -1,0 +1,18 @@
+[Unit]
+DefaultDependencies=no
+BindsTo=dev-mapper-Documents.device
+After=dev-mapper-Documents.device
+BindsTo=dev-mapper-Documents\x2dscyron.device
+Requires=Documents-scyron.mount
+Before=Document-scyron.mount
+Conflicts=umount.target
+Before=umount.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+TimeoutSec=0
+ExecStop=/usr/bin/cryptsetup close Documents-scyron
+
+[Install]
+RequiredBy=dev-mapper-Documents\x2dscyron.device
